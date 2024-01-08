@@ -72,6 +72,12 @@ export default function Page({ params }: { params: { id: string } }) {
         router.push('/');
       }, 1000);
     } catch (error) {
+      toast.error('Something went wrong!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        closeOnClick: true,
+        theme: 'colored',
+      });
       console.log('Error:', error);
     }
   };

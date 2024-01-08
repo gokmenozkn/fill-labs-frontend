@@ -29,10 +29,21 @@ export default function UserList() {
         </tr>
       </thead>
       <tbody>
-        {users &&
+        {users.length === 0 ? (
+          <tr>
+            <td colSpan={5} className='py-2 px-4 border-b text-center text-lg'>
+              No data to show
+            </td>
+          </tr>
+        ) : (
           users.map((user) => (
-            <UserListItem key={user.id} user={user} handleDelete={handleDelete} />
-          ))}
+            <UserListItem
+              key={user.id}
+              user={user}
+              handleDelete={handleDelete}
+            />
+          ))
+        )}
       </tbody>
     </table>
   );
