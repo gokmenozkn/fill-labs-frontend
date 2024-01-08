@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { FormData } from '@/types/User';
 import UserApi from '@/utils/api';
 import FormView from '@/components/FormView';
+import { toast, ToastContainer } from 'react-toastify';
 
 const userApi = new UserApi();
 
@@ -22,12 +23,12 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     async function getUser() {
       try {
-        const res = await axios.get(`http://localhost:8080/users/${id}`);
-        console.log(res);
+        const data = await userApi.getUser(id);
+        console.log(data);
         setFormData({
-          name: res.data.name,
-          email: res.data.email,
-          about: res.data.about,
+          name: data.name,
+          email: data.email,
+          about: data.about,
         });
       } catch (e) {
         console.log(e);
@@ -53,7 +54,23 @@ export default function Page({ params }: { params: { id: string } }) {
       const response = await userApi.updateUser(id, formData);
 
       console.log('success:', response);
-      router.push('/');
+
+      // show success message
+      toast.success('User updated successfully!', {
+        position: 'top-center',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      // redirect to home page after a second
+      setTimeout(() => {
+        router.push('/');
+      }, 1000);
     } catch (error) {
       console.log('Error:', error);
     }
@@ -61,6 +78,8 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
+      <ToastContainer />
+
       {/* Back button */}
       <div className='py-4 max-w-2xl mx-auto'>
         <Link href='/' className='text-blue-600 hover:text-blue-400'>
