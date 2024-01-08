@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
 import { User } from '@/types/User';
+import UserApi from '@/utils/api';
 
-export const getUsers = async () => {
-  const apiUrl = 'http://localhost:8080/users';
+// export const getUsers = async () => {
+//   const apiUrl = 'http://localhost:8080/users';
 
-  try {
-    const response = await fetch(apiUrl);
+//   try {
+//     const response = await fetch(apiUrl);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    throw error;
-  }
-};
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error('Error fetching users:', error);
+//     throw error;
+//   }
+// };
+
+const userApi = new UserApi();
 
 const useUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -27,7 +30,7 @@ const useUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUsers();
+        const data = await userApi.getUsers();
         setUsers(data);
       } catch (error) {
         console.error('Error in useUsers:', error);
