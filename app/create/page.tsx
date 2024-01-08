@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormData } from '@/types/User';
 import UserApi from '@/utils/api';
+import FormView from '@/components/FormView';
 
 const userApi = new UserApi();
 
@@ -47,7 +48,7 @@ export default function Create() {
         </Link>
       </div>
 
-      <div className='max-w-md mx-auto bg-white p-8 rounded-md shadow-md'>
+      {/* <div className='max-w-md mx-auto bg-white p-8 rounded-md shadow-md'>
         <h2 className='text-2xl font-semibold mb-4'>Create User</h2>
 
         <form onSubmit={handleSubmit}>
@@ -101,7 +102,13 @@ export default function Create() {
             Create
           </button>
         </form>
-      </div>
+      </div> */}
+      <FormView
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        page='Create'
+        formData={formData}
+      />
     </>
   );
 }
