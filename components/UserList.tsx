@@ -1,13 +1,12 @@
-import Link from "next/link";
-import axios from "axios";
-import useUsers from "@/hooks/useUser";
-import UserApi from "@/utils/api";
+import useUsers from '@/hooks/useUser';
+import UserApi from '@/utils/api';
+import UserListItem from './UserListItem';
 
 const userApi = new UserApi();
 
 export default function UserList() {
   const { users, setUsers } = useUsers();
-  
+
   const handleDelete = async (id: number) => {
     try {
       const res = await userApi.deleteUser(id.toString());
@@ -32,30 +31,7 @@ export default function UserList() {
       <tbody>
         {users &&
           users.map((user) => (
-            <tr key={user.id}>
-              <td className='py-2 px-4 border-b text-center'>{user.id}</td>
-              <td className='py-2 px-4 border-b text-center'>{user.name}</td>
-              <td className='py-2 px-4 border-b text-center'>{user.email}</td>
-              <td className='py-2 px-4 border-b text-center'>
-                {user.createdAt}
-              </td>
-              <td className='py-2 px-4 border-b'>
-                <div className='flex items-center'>
-                  <Link
-                    href={`/edit/${user.id}`}
-                    className='mr-4 bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800'
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(user.id)}
-                    className='bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800'
-                  >
-                    Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
+            <UserListItem key={user.id} user={user} handleDelete={handleDelete} />
           ))}
       </tbody>
     </table>
