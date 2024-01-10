@@ -1,6 +1,7 @@
 import useUsers from '@/hooks/useUser';
 import UserApi from '@/utils/api';
 import UserListItem from './UserListItem';
+import EmptyRow from './EmptyRow';
 
 const userApi = new UserApi();
 
@@ -30,11 +31,7 @@ export default function UserList() {
       </thead>
       <tbody>
         {users.length === 0 ? (
-          <tr>
-            <td colSpan={5} className='py-2 px-4 border-b text-center text-lg'>
-              No data to show
-            </td>
-          </tr>
+          <EmptyRow colSpan={5} />
         ) : (
           users.map((user) => (
             <UserListItem
