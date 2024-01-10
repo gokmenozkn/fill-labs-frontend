@@ -7,10 +7,12 @@ import { FormData } from '@/types/User';
 import UserApi from '@/utils/api';
 import FormView from '@/components/FormView';
 import { toast, ToastContainer } from 'react-toastify';
+import { useUserContext } from '@/contexts/userContext';
 
 const userApi = new UserApi();
 
 export default function Create() {
+  const { dispatch } = useUserContext();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -32,6 +34,7 @@ export default function Create() {
 
     try {
       const response = await userApi.createUser(formData);
+      dispatch({ type: 'ADD_USER', payload: response });
 
       console.log('success:', response);
 

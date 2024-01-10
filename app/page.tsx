@@ -2,10 +2,26 @@
 
 import Link from 'next/link';
 import UserList from '@/components/UserList';
-import useUsers from '@/hooks/useUser';
+import UserApi from '@/utils/api';
+import { useUserContext } from '@/contexts/userContext';
+import { useEffect } from 'react';
+
+const userApi = new UserApi();
 
 export default function Home() {
-  const { users, setUsers } = useUsers();
+  const { state, dispatch } = useUserContext();
+
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        const data = await userApi.getUsers();
+        dispatch({ type: 'SET_USER', payload: data });
+      } catch (e) {
+        console.error('Error getting user:', e);
+      }
+    }
+    getUsers();
+  }, [dispatch]);
 
   return (
     <>
@@ -20,7 +36,7 @@ export default function Home() {
             Create New User
           </Link>
         </header>
-        <UserList users={users} setUsers={setUsers} />
+        <UserList users={state.users} />
       </div>
     </>
   );
