@@ -1,27 +1,12 @@
-import UserApi from '@/utils/api';
 import UserListItem from './UserListItem';
 import EmptyRow from './EmptyRow';
 import { User } from '@/types/User';
-import { SetStateAction } from 'react';
-
-const userApi = new UserApi();
 
 interface IUserList {
   users: User[];
-  setUsers: React.Dispatch<SetStateAction<User[]>>
 }
 
-export default function UserList({ users, setUsers }: IUserList) {
-  const handleDelete = async (id: number) => {
-    try {
-      const res = await userApi.deleteUser(id.toString());
-      console.log('user deleted:', res);
-      setUsers((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {
-      console.log('Error deleting user:', error);
-    }
-  };
-
+export default function UserList({ users }: IUserList) {
   return (
     <table className='min-w-full bg-white border border-gray-300'>
       <thead>
@@ -41,7 +26,6 @@ export default function UserList({ users, setUsers }: IUserList) {
             <UserListItem
               key={user.id}
               user={user}
-              handleDelete={handleDelete}
             />
           ))
         )}
