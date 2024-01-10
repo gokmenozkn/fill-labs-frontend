@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import UserList from '@/components/UserList';
+import useUsers from '@/hooks/useUser';
 
 export default function Home() {
+  const { users, setUsers } = useUsers();
 
   return (
     <>
@@ -18,7 +20,7 @@ export default function Home() {
             Create New User
           </Link>
         </header>
-        <UserList />
+        <UserList users={users} setUsers={setUsers} />
       </div>
     </>
   );

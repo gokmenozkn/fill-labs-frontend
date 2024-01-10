@@ -1,20 +1,24 @@
-import useUsers from '@/hooks/useUser';
 import UserApi from '@/utils/api';
 import UserListItem from './UserListItem';
 import EmptyRow from './EmptyRow';
+import { User } from '@/types/User';
+import { SetStateAction } from 'react';
 
 const userApi = new UserApi();
 
-export default function UserList() {
-  const { users, setUsers } = useUsers();
+interface IUserList {
+  users: User[];
+  setUsers: React.Dispatch<SetStateAction<User[]>>
+}
 
+export default function UserList({ users, setUsers }: IUserList) {
   const handleDelete = async (id: number) => {
     try {
       const res = await userApi.deleteUser(id.toString());
       console.log('user deleted:', res);
       setUsers((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
-      console.log('Hata hata:', error);
+      console.log('Error deleting user:', error);
     }
   };
 
