@@ -38,7 +38,7 @@ export default function UserListItem({ user }: IListItem) {
       <td className='py-2 px-4 border-b text-center'>{user.name}</td>
       <td className='py-2 px-4 border-b text-center'>{user.email}</td>
       <td className='py-2 px-4 border-b text-center'>{formattedDate}</td>
-      <td className='py-2 px-4 border-b'>
+      <td className='py-2 px-4 border-b flex justify-center items-center'>
         <div className='flex items-center'>
           <EditButton userId={user.id} />
           <DeleteButton handleDelete={handleDelete} isDeleting={isDeleting} />
