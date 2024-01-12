@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import UserList from '@/components/UserList';
 import UserApi from '@/utils/api';
+import UserList from '@/components/UserList';
 import { useUserContext } from '@/contexts/userContext';
 import { useEffect } from 'react';
 
