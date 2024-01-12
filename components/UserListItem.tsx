@@ -4,6 +4,7 @@ import DeleteButton from './ui/DeleteButton';
 import UserApi from '@/utils/api';
 import { useUserContext } from '@/contexts/userContext';
 import { formatDate } from '@/utils/formatDate';
+import { useState } from 'react';
 
 const userApi = new UserApi();
 
@@ -14,13 +15,19 @@ interface IListItem {
 export default function UserListItem({ user }: IListItem) {
   const { dispatch } = useUserContext();
   const formattedDate = formatDate(user.createdAt);
-  
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const handleDelete = async () => {
     try {
+      setIsDeleting(true);
+
       const res = await userApi.deleteUser(user.id.toString());
       console.log('user deleted:', res);
       dispatch({ type: 'DELETE_USER', payload: user.id });
+
+      setIsDeleting(false);
     } catch (error) {
+      setIsDeleting(false);
       console.log('Error deleting user:', error);
     }
   };
@@ -34,7 +41,7 @@ export default function UserListItem({ user }: IListItem) {
       <td className='py-2 px-4 border-b'>
         <div className='flex items-center'>
           <EditButton userId={user.id} />
-          <DeleteButton handleDelete={handleDelete} />
+          <DeleteButton handleDelete={handleDelete} isDeleting={isDeleting} />
         </div>
       </td>
     </tr>
