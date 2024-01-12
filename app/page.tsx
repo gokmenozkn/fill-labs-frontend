@@ -32,6 +32,7 @@ export default function Home() {
           <Link
             className='bg-white py-2 px-4 rounded hover:bg-cyan-50'
             href='/create'
+            data-testid='create-button'
           >
             Create New User
           </Link>
