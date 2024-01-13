@@ -37,7 +37,7 @@ export default function Home() {
             Create New User
           </Link>
         </header>
-        <UserList users={state.users} />
+        <UserList users={state.users || []} />
       </div>
     </>
   );
