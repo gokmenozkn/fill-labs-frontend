@@ -2,6 +2,8 @@
 
 User Management System is a project that includes a backend developed in Golang and a frontend designed with Next.js. This system allows you to perform CRUD (Create, Read, Update, Delete) operations on user data.
 
+![](./public/web.gif)
+
 ## Installation
 
 1. Backend repository: [Golang Backend](https://github.com/gokmenozkn/fill-labs-backend)
